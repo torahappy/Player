@@ -572,6 +572,18 @@ void Window_Message::UpdateMessage() {
 		if (tret.is_escape && ch != Player::escape_char) {
 			// Special message codes
 			switch (ch) {
+			case 'w':
+			case 'W':
+				{
+					// Wait
+					if (Player::IsPatchManiac()) {
+						auto pres = Game_Message::ParseWait(text_index, end, Player::escape_char, true);
+						text_index = pres.next;
+						DebugLogText("{}: MSG Wait Maniac \\w[{}]", pres.value);
+						SetWaitForNonPrintable(pres.value);
+					}
+				}
+				break;
 			case 'c':
 			case 'C':
 				{
